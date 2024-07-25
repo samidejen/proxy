@@ -11,8 +11,9 @@
     <!-- show app -->
     <item
         android:id="@+id/menu_filter_app_system"
-        android:checkable="true"
         android:title="show system app"
+        android:checkable="true"
+        android:enabled="true"
         app:showAsAction="never" />
     <!-- sort by -->
     <item
@@ -31,12 +32,12 @@
                 <item
                     android:id="@+id/menu_sort_app_name"
                     android:checked="true"
-                    android:title="sort by app name"
+                    android:title="app name"
                     android:orderInCategory="111"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/menu_sort_pkg_name"
-                    android:title="sort by package name"
+                    android:title="package name"
                     android:orderInCategory="112"
                     app:showAsAction="never" />
             </group>
@@ -59,12 +60,12 @@
                 <item
                     android:id="@+id/menu_sort_order_asc"
                     android:checked="true"
-                    android:title="Asc"
+                    android:title="ascending"
                     android:orderInCategory="211"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/menu_sort_order_desc"
-                    android:title="Desc"
+                    android:title="descending"
                     android:orderInCategory="212"
                     app:showAsAction="never" />
             </group>
@@ -87,12 +88,12 @@
                 <item
                     android:id="@+id/menu_filter_app_name"
                     android:checked="true"
-                    android:title="filter by app name"
+                    android:title="app name"
                     android:orderInCategory="211"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/menu_filter_pkg_name"
-                    android:title="filter by package name"
+                    android:title="package name"
                     android:orderInCategory="212"
                     app:showAsAction="never" />
             </group>
