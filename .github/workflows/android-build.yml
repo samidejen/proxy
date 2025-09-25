@@ -1,0 +1,47 @@
+# This is the name of our Action, which will appear on the GitHub Actions tab
+name: Build TunProxy Android App
+
+# This tells GitHub WHEN to run the action.
+# "push" means it will run every time you push new code to your "main" branch.
+on:
+  push:
+    branches: [ "main" ]
+  # This also allows you to run the workflow manually from the Actions tab
+  workflow_dispatch:
+
+# This defines the "job" or the set of steps the robot will perform
+jobs:
+  build:
+    # The robot will be a fresh, virtual machine running the latest version of Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out your repository's code
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up the Java environment (JDK 11) required for Android builds
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: 'gradle'
+
+    # Step 3: Make the Gradle Wrapper script executable
+    # This is the same as running "chmod +x ./gradlew"
+    - name: Make gradlew executable
+      run: chmod +x ./android_app/gradlew
+      
+    # Step 4: Run the build command
+    # This is the same command we used on the command line. It will build the debug APK.
+    - name: Build with Gradle
+      run: ./android_app/gradlew -p ./android_app assembleDebug
+
+    # Step 5: Upload the generated APK as a downloadable "artifact"
+    # This makes the final .apk file available for you to download.
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: tunproxy-debug-apk
+        path: android_app/app/build/outputs/apk/debug/app-debug.apk
