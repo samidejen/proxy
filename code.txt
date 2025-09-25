@@ -1,0 +1,636 @@
+Readme.md:
+--------------------------------------------------------------------------------
+Android HTTP traffic Proxy setting tool
+=============
+
+Language/[Japanese](https://github.com/raise-isayan/TunProxy/blob/master/Readme-ja.md)
+
+This tool is a proxy configuration tool that takes advantage of Android VPNService feature. 
+Only the communication from the specified application can be acquired.
+
+## how to use
+
+When you start the TunProxy application, the following screen will be launched.
+
+![Tun Proxy](images/TunProxy.png)
+
+* Proxy address (ipv4:port)
+  * Specify the destination proxy server in the format **IPv4 address:port number**.
+    The IP address must be described in IPv4 format.
+
+* [Start] button
+  * Start the VPN service.
+* [Stop] button
+  * Stop the VPN service.
+
+## menu
+
+Application settings can be made from the menu icon (![Menu](images/Menu.png)) at the top of the screen.
+
+### Settings
+
+Configure VPN service settings.
+
+![Menu Settings](images/Menu-Settings.png) ⇒ ![Menu Settings](images/Menu-Settings-app.png)
+
+There are two modes, Disallowed Application and Allowed Application, but you can not specify them at the same time.
+Because of this you will have to choose whether you want to run in either mode.
+The default is **Disallowed Application** selected.
+
+* Disallowed Application
+  * Select the application you want to exclude from VPN service.
+    The selected application will no longer go through VPN service and behave the same as if you do not use VPN.
+
+* Allowed Application
+  * Select the application for which you want to perform VPN service.
+    The selected application will now go through VPN service.
+    Applications that are not selected behave the same as when not using VPN.
+    In addition, if none of them are selected, communication of all applications will go through VPN.
+
+* Clear all selection
+  * Clear all selections of Allowed / Disallowed application list.
+
+### Settings Search
+
+![Menu Settings](images/Menu-Settings-Search.png) / ![Menu Settings](images/Menu-Settings-Menu.png)
+
+You can narrow down the applications from the search icon.(![Menu](images/Search.png))
+Only applications that contain the keyword specified in the application name or package name will be displayed.
+
+The application list can be sorted from the menu icon  (![Menu](images/Menu.png)) at the top of the screen.
+
+### Settings Menu
+
+Changed the way the application list is displayed.
+
+* show system app
+  * show system application
+
+### sort by
+
+* app name
+  * Sort application list by application name
+
+* package name
+  * Sort application list by package name
+
+### order by
+
+* ascending
+  * Sorting in ascending order
+
+* descending
+  * Sorting in descending order
+
+### filter by
+
+* app name
+  * Search for the application name that contains the keyword you specified.
+
+* package name
+  * Search for the package name that contains the keyword you specified.
+
+### MITM (SSL decrypt)
+
+TunProxy does not perform SSL decryption. TunProxy acts like a transparent proxy.
+To perform SSL decryption, set the IP of an SSL decryptable proxy such as Burp suite or Fiddler to the IP of TunProxy
+
+The following are local proxy tools that can decrypt SSL.
+
+* Burp suite
+  * https://portswigger.net/burp
+
+* Fiddler
+  * https://www.telerik.com/fiddler
+
+* ZAP Proxy
+  * https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project
+
+To decrypt SSL, install the local proxy tool Root certificate in the Android device user certificate.
+However, in Android 7.0 and later, the application no longer trusts user certificates by default.
+
+* https://android-developers.googleblog.com/2016/07/changes-to-trusted-certificate.html
+
+Please refer to the following web site as a solution
+
+* Android 7 Nougat and certificate authorities
+  * https://blog.jeroenhd.nl/article/android-7-nougat-and-certificate-authorities
+
+### About
+Display application version
+
+## Operating environment
+
+* Android 5.0 (API Level 21) or later
+
+### ビルド
+ gradlew build
+
+## base application
+
+Most of the code was created based on the following applications for creating applications.
+
+* forked from MengAndy/tun2http
+  * https://github.com/MengAndy/tun2http/
+
+## Development environment
+
+* JRE(JDK) 1.8 or later(Open JDK)
+* AndroidStudio 2021.1.1 (https://developer.android.com/studio/index.html)
+
+
+Readme-ja.md:
+--------------------------------------------------------------------------------
+Android 通信 Proxy 設定ツール
+=============
+
+Language/[English](https://github.com/raise-isayan/TunProxy/blob/master/Readme.md)
+
+このツールは、Android の VPNService 機能を利用した Proxy 設定ツールです。
+指定したアプリからの通信のみを取得することが可能です。
+
+## 使用方法
+
+ユーザ証明書領域に信頼させたい Root CA がない場合はインストールします。
+
+TunProxyアプリを起動すると以下の画面が起動します。
+
+![Tun Proxy](images/TunProxy.png)
+
+* Proxy address (ipv4:port)
+  * 接続先のプロキシサーバを **IPv4アドレス:ポート番号** の形式で指定します。
+     IPアドレスはIPv4形式で記載する必要があります。
+
+* [Start] ボタン
+  * 接続を開始します。
+* [Stop] ボタン
+  * 接続を停止します。
+
+## メニュー
+
+画面上部のメニューアイコン(![Menu](images/Menu.png))からアプリケーションの設定ができます。
+
+### Settings
+
+VPNの接続設定を行います。
+
+![Menu Settings](images/Menu-Settings.png) ⇒ ![Menu Settings](images/Menu-Settings-app.png)
+
+Disallowed Application と Allowed Application の２つのモードがありますが、同時に指定することはできません。
+このためどちらのモードで動作させたいかを選択する必要があります。
+デフォルトは **Disallowed Application** が選択された状態です。
+
+* Disallowed Application
+  * VPN通信から除外したいアプリを選択する。
+    選択したアプリはVPN通信を経由されなくなり、VPNを利用しない場合と同じ挙動となります。
+
+* Allowed Application
+  * VPN通信を行いたいアプリを選択する。
+    選択したアプリはVPN通信を経由するようになります。
+    選択されていないアプリは、VPNを利用しない場合と同じ挙動になります。
+    なお、一つも選択されていない場合は、すべてのアプリの通信がVPNを経由します。
+
+* Clear all selection
+  * Allowed / Disallowed Application のすべての選択をクリアします。
+
+### Settings 検索
+
+![Menu Settings](images/Menu-Settings-Search.png) / ![Menu Settings](images/Menu-Settings-Menu.png)
+
+画面上部の検索アイコン(![Menu](images/Search.png))から、アプリケーションを絞り込めます。
+アプリケーション名または、パッケージ名に指定したキーワードを含むアプリケーションのみが表示されます。
+
+プリケーションリストは、画面上部のメニューアイコン(![Menu](images/Menu.png))からソートできます。
+
+### Settings Menu
+
+アプリ一覧の表示方法を変更します。
+
+* show system app
+  * システムアプリを表示します。
+
+#### sort by
+
+* app name
+  * アプリケーション名でアプリケーションリストを並べ替えます。
+
+* package name
+  * パッケージ名でアプリケーションリストを並べ替えます。
+
+#### order by
+
+* ascending
+  * 昇順にソートします
+
+* descending
+  * 降順にソートします
+
+#### filter by
+
+* app name
+  * アプリケーション名に指定したキーワードを含むものを検索します。
+
+* package name
+  * パッケージ名に指定したキーワードを含むものを検索します。
+
+### MITM (SSL 復号化)
+
+TunProxyはSSL復号化を実行しません。TunProxyは透過プロキシのように機能します。
+
+SSL復号化を実行するには、Burp suite や Fiddler などのSSLを復号化可能なローカルプロキシツールのIPをTunProxyのIPに設定します
+
+SSLを復号化可能なローカルプロキシツールとしては次に記載するものがあります。
+
+* Burp suite
+  * https://portswigger.net/burp
+
+* Fiddler
+  * https://www.telerik.com/fiddler
+
+* ZAP Proxy
+  * https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project
+
+
+SSLを復号化するには、ローカルプロキシツールのRoot証明書をAndroid端末のユーザ証明書にインストールしてください。
+ただし、Android 7.0 以降において、デフォルトではユーザ証明書を信頼しなくなっています。
+
+* https://android-developers.googleblog.com/2016/07/changes-to-trusted-certificate.html
+
+解決策として次のWebサイトを参照してください。
+
+* Android 7 Nougatおよび認証局
+  * https://blog.jeroenhd.nl/article/android-7-nougat-and-certificate-authorities
+
+### About
+アプリケーションバージョンを表示します。
+
+## 動作環境 
+
+* Android 5.0 (API Level 21) 以降
+
+### ビルド
+ gradlew build
+
+## 謝辞
+
+アプリ作成にあたりコードの大部分は以下のアプリをベースとして作成しました。
+
+* forked from MengAndy/tun2http
+  * https://github.com/MengAndy/tun2http/
+
+## 開発環境
+
+* JRE(JDK) 1.8以上(Open JDK)
+* AndroidStudio 2021.1.1 (https://developer.android.com/studio/index.html)
+
+
+android_app/gradle.properties:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/settings.gradle:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/gradlew.bat:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/gradlew:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/changeit.jks:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/.gitignore:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/build.gradle:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/proguard-rules.pro:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/CMakeLists.txt:
+--------------------------------------------------------------------------------
+cmake_minimum_required(VERSION 3.10.2)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp)
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/main/assets/${ANDROID_ABI}")
+
+add_library( # Sets the name of the library.
+        tun2http
+
+        # Sets the library as a shared library.
+        SHARED
+
+        src/main/cpp/dhcp.c
+        src/main/cpp/dns.c
+        src/main/cpp/icmp.c
+        src/main/cpp/ip.c
+        src/main/cpp/http.c
+        src/main/cpp/tun2http.c
+        src/main/cpp/session.c
+        src/main/cpp/tcp.c
+        src/main/cpp/tls.c
+        src/main/cpp/udp.c
+        src/main/cpp/util.c
+        )
+
+find_library( # Sets the name of the path variable.
+        log-lib
+
+        # Specifies the name of the NDK library that
+        # you want CMake to locate.
+        log)
+
+target_link_libraries( # Specifies the target library.
+        tun2http
+        ${log-lib}
+        )
+
+android_app/app/.gitignore:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/build.gradle:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/AndroidManifest.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-mdpi/ic_launcher_round.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-mdpi/ic_launcher.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-hdpi/ic_launcher_round.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-hdpi/ic_launcher.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/values/dimens.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/values/styles.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/values/strings.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/values/colors.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xxhdpi/ic_launcher.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/xml/network_security_config.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/xml/preferences.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/navigation/nav_graph.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/menu/menu_search.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/menu/menu_main.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/layout/content_main.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/layout/preference_progress.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/layout/activity_main.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/layout/activity_settings.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/mipmap-xhdpi/ic_launcher.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/res/drawable/ic_launcher_background.xml:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/proxy/SettingsActivity.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/proxy/MyApplication.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/proxy/MainActivity.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/proxy/service/Tun2HttpVpnService.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/proxy/receiver/BootReceiver.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/utils/ProgressTask.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/utils/IPUtil.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/utils/Util.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/java/tun/utils/CertificateUtil.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/http.h:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/dhcp.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/icmp.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/tls.h:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/http.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/dns.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/tcp.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/tls.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/ip.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/tun2http.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/util.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/udp.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/tun2http.h:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/main/cpp/session.c:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/androidTest/java/tun/proxy/ProgressTaskTest.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/androidTest/java/tun/proxy/AppInstrumentedTest.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/app/src/test/java/tun/proxy/IPUtilTest.java:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/gradle/wrapper/gradle-wrapper.jar:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+android_app/gradle/wrapper/gradle-wrapper.properties:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/Menu-Settings-Search.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/Menu-Settings-Menu.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/Menu-Settings-app.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/Search.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/Menu.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/Menu-Settings.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
+images/TunProxy.png:
+--------------------------------------------------------------------------------
+[Skipped: excluded file type]
+
